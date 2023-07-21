@@ -10,8 +10,14 @@ python = "^3.9"
 fastapi = "^0.100.0"
 uvicorn = "^0.23.1"
 ruff = "^0.0.278"
+markdown = "^3.4.3"
+jinja2 = "^3.1.2"
+commonmark = "^0.9.1"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "mindexpo.main:start"
