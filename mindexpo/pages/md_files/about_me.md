@@ -1,4 +1,12 @@
-# About Me
+---
+title:   About me
+summary: A brief description of my self.
+author: Bikash jaiswal
+date:    October 2, 2007
+base_url: http://example.com
+---
+
+# Intro
 
 Hello there! I'm Bikash Jaiswal, an accomplished Software Engineer with a passion for implementing real-time products leveraging ML/AI models within cloud-based environments. With extensive experience working with the latest ML/AI frameworks and technologies, such as TensorFlow, PyTorch, and scikit-learn, I strive to drive innovation and achieve high-impact results.
 
