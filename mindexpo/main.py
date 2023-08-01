@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import markdown
+import uvicorn
 from .routers import items, pages
 import frontmatter
 app = FastAPI()
@@ -25,3 +26,8 @@ async def root(request: Request):
         "content": markdown.markdown(content)
     }
     return templates.TemplateResponse("about.html", {"request": request, "data": data})
+
+
+def start():
+    """Launched with `poetry run start` at root level"""
+    uvicorn.run("mindexpo.main:app", reload=True)
