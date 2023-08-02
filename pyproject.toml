@@ -13,6 +13,7 @@ ruff = "^0.0.278"
 markdown = "^3.4.3"
 jinja2 = "^3.1.2"
 python-frontmatter = "^1.0.0"
+email-validator = "^2.0.0.post2"
 
 
 [build-system]
@@ -20,4 +21,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-start = "mindexpo.main:start"
+start = "mindexpo.main:start" 
