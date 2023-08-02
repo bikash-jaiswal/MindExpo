@@ -14,15 +14,17 @@ router = APIRouter(
 
 templates = Jinja2Templates(directory="mindexpo/pages/templates")
 
+
 @router.get("/", response_class=HTMLResponse)
 async def root(request: Request):
-    
-    with open("mindexpo/pages/md_files/about_me.md", "r", encoding="utf-8") as input_file:
+    with open(
+        "mindexpo/pages/md_files/about_me.md", "r", encoding="utf-8"
+    ) as input_file:
         metadata, content = frontmatter.parse(input_file.read())
-    
+
     data = {
-        "title": metadata['title'],
-        "author": metadata['author'],
-        "content": markdown.markdown(content)
+        "title": metadata["title"],
+        "author": metadata["author"],
+        "content": markdown.markdown(content),
     }
     return templates.TemplateResponse("about.html", {"request": request, "data": data})

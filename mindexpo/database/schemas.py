@@ -5,9 +5,11 @@ from typing import List, Optional
 from enum import Enum
 from pydantic import BaseModel, EmailStr, Field, HttpUrl, ValidationError
 
+
 class User(BaseModel):
     email: EmailStr
     website: HttpUrl
+
 
 # Invalid email
 try:
@@ -15,6 +17,7 @@ try:
     print(user)
 except ValidationError as e:
     print(str(e))
+
 
 class Gender(str, Enum):
     MALE = "MALE"
@@ -36,6 +39,7 @@ class Person(BaseModel):
     age: Optional[int] = Field(None, ge=0, le=120)
     interests: List[str]
     address: Address
+
 
 # class UserProfile(BaseModel):
 #     username: Field(..., min_length=3)

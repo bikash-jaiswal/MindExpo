@@ -29,7 +29,6 @@ RECIPES = [
 ]
 
 
-
 @router.get("/{recipe_id}", status_code=200)
 async def items(*, recipe_id: int) -> dict:  # 3
     """
@@ -39,7 +38,8 @@ async def items(*, recipe_id: int) -> dict:  # 3
     result = [recipe for recipe in RECIPES if recipe["id"] == recipe_id]
     if result:
         return result[0]
-    
+
+
 @router.get("/")
 async def root():
     return {"message": "List of Items"}
