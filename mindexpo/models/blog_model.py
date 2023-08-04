@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr, root_validator
 
+
 class PostBase(BaseModel):
     title: str
     content: str
@@ -7,14 +8,16 @@ class PostBase(BaseModel):
     def excerpt(self) -> str:
         return f"{self.content[:140]}..."
 
+
 # a POST endpoint to create a new post.
 class PostCreate(PostBase):
     pass
 
+
 class PostPublic(PostBase):
     id: int
 
-   
+
 class PostDB(PostBase):
     id: int
     nb_views: int = 0

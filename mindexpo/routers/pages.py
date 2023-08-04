@@ -5,6 +5,9 @@ from fastapi.templating import Jinja2Templates
 import markdown
 import frontmatter
 
+from mindexpo.db import database
+from mindexpo.db.models import create_blog_post, run_db
+
 router = APIRouter(
     prefix="/blogs",
     tags=["blog"],
@@ -17,6 +20,7 @@ templates = Jinja2Templates(directory="mindexpo/pages/templates")
 
 @router.get("/", response_class=HTMLResponse)
 async def root(request: Request):
+    run_db()
     with open(
         "mindexpo/pages/md_files/about_me.md", "r", encoding="utf-8"
     ) as input_file:
@@ -28,3 +32,4 @@ async def root(request: Request):
         "content": markdown.markdown(content),
     }
     return templates.TemplateResponse("about.html", {"request": request, "data": data})
+
