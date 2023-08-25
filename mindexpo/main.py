@@ -4,14 +4,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import markdown
 import uvicorn
-from .routers import items, pages
+from .routers import pages
 import frontmatter
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="mindexpo/static"), name="static")
 
 app.include_router(pages.router)
-app.include_router(items.router)
 
 
 templates = Jinja2Templates(directory="mindexpo/pages/templates")
@@ -33,4 +32,4 @@ templates = Jinja2Templates(directory="mindexpo/pages/templates")
 
 def start():
     """Launched with `poetry run start` at root level"""
-    uvicorn.run("mindexpo.main:app", reload=True)
+    uvicorn.run("mindexpo.main:app", reload=True, port=8001)

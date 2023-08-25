@@ -1,24 +1,37 @@
 from logging import Logger
-from fastapi import APIRouter, HTTPException, Request
+from typing import Annotated
+from fastapi import APIRouter, Depends, HTTPException, Request
 
 # from fastapi.responses import HTMLResponse
 # from fastapi.templating import Jinja2Templates
 import markdown
 import frontmatter
-from mindexpo.db.database import BlogPost, SessionLocal
+from mindexpo.db.database import BlogPost as blog_db, SessionLocal, add_blog
 from mindexpo.db import schemas
-
+from sqlalchemy.orm import Session
 router = APIRouter(
     prefix="/blogs",
     tags=["blog"],
     responses={404: {"description": "Not found"}},
 )
 
-
-@router.get("/{blogpost_id}", response_model=schemas.BlogPost)
-def read_blogpost(blogpost_id: int):
+def get_db():
     db = SessionLocal()
-    blogpost = db.query(BlogPost).filter(BlogPost.id == blogpost_id).first()
+    try:
+        yield db
+    finally:
+        db.close()
+
+db_dependency = Annotated(Session, Depends(get_db))
+
+@router.get('/')
+async def read_all(db: db_dependency):
+    return db.query(schemas.BlogPost).all
+
+@router.get("/{title}", response_model=schemas.BlogPost)
+def read_blogpost(title: str):
+    db = SessionLocal()
+    blogpost = db.query(blog_db).filter(blog_db.title == title).first()
     db.close()
     if blogpost is None:
         raise HTTPException(status_code=404, detail="Blog post not found")
@@ -27,6 +40,7 @@ def read_blogpost(blogpost_id: int):
 
 @router.post("/")
 def add_blogpost(request: schemas.BlogPost):
+    add_blog(request.BlogPost)
     return f"New Post added: {request.id}, {request.title}, {request.content}, {request.created_at}"
 
 

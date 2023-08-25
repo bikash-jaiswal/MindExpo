@@ -2,7 +2,6 @@ from datetime import datetime
 from typing import List
 from pydantic import BaseModel
 
-
 class BlogPost(BaseModel):
     id: int
     title: str
@@ -17,7 +16,7 @@ class BlogPost(BaseModel):
 
 # class PostBase(BaseModel):
 #     description: str | None = None
-#     title: str
+#     title: str 
 #     content: str
 
 # class PostCreate(PostBase):
@@ -27,6 +26,7 @@ class BlogPost(BaseModel):
 #     id: str
 #     published_date: datetime
 #     tags: List = []
-
+    
 #     class Config:
 #         orm_mode = True
+
